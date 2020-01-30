@@ -2,9 +2,9 @@
   "name": "twitbot",
   "version": "1.0.0",
   "description": "A twitter bot for Emmet Fox Quotes",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node app.js"
   },
   "keywords": [
     "twitter",
