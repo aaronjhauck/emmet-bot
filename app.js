@@ -1,25 +1,29 @@
-var twit = require("twit");
-var q    = require("./quotes.json"); 
+const twit    = require('twit')
+	, keys    = require('./keys')
+	, Twitter = new twit(keys)
+    , q       = require('./quotes.json')
+	, utils   = require('node-blutils')
+	, sched    = require('node-schedule');
 
-var Twitter = new twit({
-	consumer_key: 'QdmYDym4Jy77rBNOpJLrYjapj',
-	consumer_secret: 'DsSg9jFam16zd6oOjFQh7iCqsLyaTzPUH3vHF7pSw3ZPa8YWlk',
-	access_token: '1221288355628929025-SFJDomFxJk37bfrCeGj5NB0ftl94t3',
-	access_token_secret: 'M46vSQOLCKL3F6XgGN4FhMgRO5B13VGR8gXKl5nKZkV3T',
-	timeout_ms: 60 * 10000,
-});
-
-var get_quote = function(list) {
-	var pos = Math.floor((Math.random()*list.length));
-	return list[pos];
-}
-
-var quote = get_quote(q.quotes);
-
-var tweetQuote = function() {
+var tweet = function(quote) {
 	Twitter.post('statuses/update', { status: quote }, function(err, data, response) {
 	    	console.log(data)
 	  	});
 }
 
-tweetQuote();
+let job = sched.scheduleJob('30 13 * * *', function() {
+	let quote = utils.shuffle(q.quotes);
+
+	utils.print("Begining tweet function...");
+	utils.print(`Quote: ${quote}`);
+	utils.print("Attempting to tweet...");
+
+	try {
+		tweet(quote);
+		utils.print("Tweeted successfully!");
+	}
+	catch(err) {
+		utils.err("Unable to send tweet!");
+		utils.err(err);
+	}
+});

@@ -1,0 +1,8 @@
+version: '2'
+services:
+  app:
+    build: .
+    command: nodemon app.js
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
