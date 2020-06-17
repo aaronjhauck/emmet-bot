@@ -1,7 +1,7 @@
 const twit    = require('twit')
 	, keys    = require('./keys')
 	, Twitter = new twit(keys)
-    , q       = require('./quotes.json')
+	, q       = require('./quotes.json')
 	, utils   = require('node-blutils')
 	, sched   = require('node-schedule');
 
