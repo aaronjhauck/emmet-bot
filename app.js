@@ -3,7 +3,7 @@ const twit    = require('twit')
 	, Twitter = new twit(keys)
     , q       = require('./quotes.json')
 	, utils   = require('node-blutils')
-	, sched    = require('node-schedule');
+	, sched   = require('node-schedule');
 
 var tweet = function(quote) {
 	Twitter.post('statuses/update', { status: quote }, function(err, data, response) {
